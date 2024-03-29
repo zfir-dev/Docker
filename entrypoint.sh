@@ -205,7 +205,7 @@ initialize_system() {
   # remove empty lines
   sed '/^.*=""$/d'  -i /var/www/html/.env
 
-  chmod -R 777 storage && chmod -R 777 bootstrap/cache && rm -rf bootstrap/cache/*
+  rm -rf bootstrap/cache/*
 }
 
 init_db() {
@@ -226,12 +226,17 @@ seed_db() {
   php artisan db:seed
 }
 
+app_update() {
+  php artisan app:update
+}
+
 start_system() {
   initialize_system
   check_database_connection
   check_configured
   migrate_db
   seed_db
+  app_update
   echo "Starting Cachet! ..."
   php artisan config:cache
   /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
