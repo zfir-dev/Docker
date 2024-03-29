@@ -2,7 +2,7 @@ services:
   - type: pserv
     name: postgres
     env: docker
-    image:  postgres:12-alpine
+    image: docker.io/postgres/postgres:12-alpine
     plan: free
     envVars:
       - key: POSTGRES_USER
