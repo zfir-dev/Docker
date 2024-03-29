@@ -1,6 +1,24 @@
 services:
+  - type: pserv
+    name: postgres
+    env: postgres
+    plan: starter
+    numInstances: 1
+    envVars:
+      - key: POSTGRES_USER
+        value: postgres
+      - key: POSTGRES_PASSWORD
+        value: postgres
+
   - type: web
-    name: Status Page
-    plan: free
-    runtime: docker
-    dockerCommand: docker-compose up
+    name: cachet
+    env: docker
+    buildCommand: "docker build -t cachet --build-arg cachet_ver=2.4 ."
+    startCommand: "docker run -e PORT=$PORT -e DB_DRIVER=pgsql -e DB_HOST=postgres.onrender.com -e DB_PORT=5432 -e DB_DATABASE=postgres -e DB_USERNAME=postgres -e DB_PASSWORD=postgres -e DB_PREFIX=chq_ -e APP_KEY=${APP_KEY:-null} -e APP_LOG=errorlog -e APP_ENV=${APP_ENV:-production} -e APP_DEBUG=false -e DEBUG=false -p $PORT:8000 cachet"
+    envVars:
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_ENV
+        value: production
+    dependencies:
+      - postgres
