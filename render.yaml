@@ -27,7 +27,7 @@ services:
           name: postgres
           property: password
       - key: DB_PREFIX
-          value: "chq_"
+        value: "chq_"
       - key: APP_KEY
         value: "${APP_KEY:-null}" # You might need to generate this key and manually set it in Render's environment variables
       - key: APP_LOG
