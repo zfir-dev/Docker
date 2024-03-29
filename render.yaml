@@ -3,4 +3,4 @@ services:
     name: Status Page
     plan: free
     runtime: docker
-    dockerCommand: docker compose up
+    dockerCommand: docker-compose up
