@@ -41,4 +41,5 @@ services:
 
 databases:
   - name: postgres_prod
+    plan: free
     databaseName: postgres_prod
