@@ -3,8 +3,6 @@ services:
     name: cachet
     env: docker
     plan: free
-    buildCommand: "docker build -t cachet --build-arg cachet_ver=2.4 ."
-    dockerCommand: "docker run -d --name cachet --link postgres -e DB_DRIVER=pgsql -e DB_HOST=S{DB_HOST} -e DB_PORT=${DB_PORT} -e DB_DATABASE=S{DB_DATABASE} -e DB_USERNAME=${DB_USERNAME} -e DB_PASSWORD=${DB_PASSWORD} -e DB_PREFIX=${DB_PREFIX} -d cachet"
     envVars:
       - key: DB_HOST
         fromDatabase:
