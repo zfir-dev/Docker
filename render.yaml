@@ -1,39 +1,33 @@
 services:
-  - type: pserv
-    name: postgres
-    env: docker
-    image: docker.io/postgres/postgres:12-alpine
-    plan: free
-    envVars:
-      - key: POSTGRES_USER
-        value: postgres
-      - key: POSTGRES_PASSWORD
-        value: postgres
-
   - type: web
     name: cachet
     env: docker
     plan: free
     buildCommand: "docker build -t cachet --build-arg cachet_ver=2.4 ."
-    startCommand: "docker run -e PORT=$PORT -e DB_DRIVER=pgsql -e DB_HOST=postgres.onrender.com -e DB_PORT=5432 -e DB_DATABASE=postgres -e DB_USERNAME=postgres -e DB_PASSWORD=postgres -e DB_PREFIX=chq_ -e APP_KEY=${APP_KEY:-null} -e APP_LOG=errorlog -e APP_ENV=${APP_ENV:-production} -e APP_DEBUG=false -e DEBUG=false -p $PORT:8000 cachet"
+    startCommand: "docker run -d --name cachet --link postgres -e DB_DRIVER=pgsql -e DB_HOST=S{DB_HOST} -e DB_PORT=${DB_PORT} -e DB_DATABASE=S{DB_DATABASE} -e DB_USERNAME=${DB_USERNAME} -e DB_PASSWORD=${DB_PASSWORD} -e DB_PREFIX=${DB_PREFIX} -d cachet"
     envVars:
-      - key: DB_DRIVER
-        value: "pgsql"
       - key: DB_HOST
-        fromService:
+        fromDatabase:
           name: postgres
-          type: pserv
           property: host
       - key: DB_PORT
-        value: "5432"
+        fromDatabase:
+          name: postgres
+          property: port
       - key: DB_DATABASE
-        value: "postgres"
+        fromDatabase:
+          name: postgres
+          property: database
       - key: DB_USERNAME
-        value: "postgres"
+        fromDatabase:
+          name: postgres
+          property: user
       - key: DB_PASSWORD
-        value: "postgres"
+        fromDatabase:
+          name: postgres
+          property: password
       - key: DB_PREFIX
-        value: "chq_"
+          value: "chq_"
       - key: APP_KEY
         value: "${APP_KEY:-null}" # You might need to generate this key and manually set it in Render's environment variables
       - key: APP_LOG
@@ -44,3 +38,7 @@ services:
         value: "false"
       - key: DEBUG
         value: "false"
+
+databases:
+  - name: postgress
+    databaseName: postgres
