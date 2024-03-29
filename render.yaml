@@ -2,4 +2,4 @@ services:
   - type: web
     name: Status Page
     plan: free
-    runtime: Docker
+    runtime: docker
