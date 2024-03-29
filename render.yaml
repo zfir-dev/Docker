@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: Status Page
+    plan: free
+    runtime: Docker
+    buildCommand: |
+      docker-compose build
+    runCommand: |
+      docker-compose up
