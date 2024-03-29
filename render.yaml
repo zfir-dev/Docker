@@ -3,7 +3,6 @@ services:
     name: cachet
     env: docker
     plan: free
-    preDeployCommand: "chmod -R 777 storage && chmod -R 777 bootstrap/cache && rm -rf bootstrap/cache/*"
     envVars:
       - key: DB_HOST
         fromDatabase:

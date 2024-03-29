@@ -205,7 +205,7 @@ initialize_system() {
   # remove empty lines
   sed '/^.*=""$/d'  -i /var/www/html/.env
 
-  rm -rf bootstrap/cache/*
+  chmod -R 777 storage && chmod -R 777 bootstrap/cache && rm -rf bootstrap/cache/*
 }
 
 init_db() {
