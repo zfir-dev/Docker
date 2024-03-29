@@ -3,5 +3,3 @@ services:
     name: Status Page
     plan: free
     runtime: docker
-    dockerfile: Dockerfile
-    dockerCommad: docker-compose up
