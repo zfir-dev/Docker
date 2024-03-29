@@ -8,23 +8,23 @@ services:
     envVars:
       - key: DB_HOST
         fromDatabase:
-          name: postgres_prod
+          name: postgres_prod_cachet
           property: host
       - key: DB_PORT
         fromDatabase:
-          name: postgres_prod
+          name: postgres_prod_cachet
           property: port
       - key: DB_DATABASE
         fromDatabase:
-          name: postgres_prod
+          name: postgres_prod_cachet
           property: database
       - key: DB_USERNAME
         fromDatabase:
-          name: postgres_prod
+          name: postgres_prod_cachet
           property: user
       - key: DB_PASSWORD
         fromDatabase:
-          name: postgres_prod
+          name: postgres_prod_cachet
           property: password
       - key: DB_PREFIX
         value: "chq_"
@@ -40,6 +40,6 @@ services:
         value: "false"
 
 databases:
-  - name: postgres_prod
+  - name: postgres_prod_cachet
     plan: free
-    databaseName: postgres_prod
+    databaseName: postgres_prod_cachet
